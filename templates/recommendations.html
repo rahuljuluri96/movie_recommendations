@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <header>
+            <h1>Your <span>Personalized</span> Recommendations</h1>
+            <p class="subtitle">Curated based on your preferences</p>
+        </header>
+
+        <main>
+            {% if recommendations %}
+            <div class="movie-grid">
+                {% for movie in recommendations %}
+                <div class="movie-card">
+                    <div class="movie-header">
+                        <span class="language-tag {{ movie.language|lower }}">{{ movie.language }}</span>
+                        <span class="rating-badge">{{ movie.rating }}</span>
+                    </div>
+                    <h3>{{ movie.title }}</h3>
+                    <div class="movie-details">
+                        <span class="genre-pill">{{ movie.genre }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-results">
+                <img src="{{ url_for('static', filename='no-results.svg') }}" alt="No results" class="no-results-img">
+                <h2>No movies match your criteria</h2>
+                <p>Try adjusting your filters for better results</p>
+            </div>
+            {% endif %}
+
+            <a href="/" class="back-btn">
+                <i class="icon-back"></i>
+                Back to Selection
+            </a>
+        </main>
+    </div>
+</body>
+</html>
